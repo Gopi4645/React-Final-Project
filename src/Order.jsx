@@ -29,7 +29,15 @@ function Order() {
                   <ul className="list-group">
                     {purchase.items.map((item, idx) => (
                       <li className="list-group-item d-flex justify-content-between align-items-center" key={`${index}-${idx}`}>
-                        <span>{item.name}</span>
+                        <div className="d-flex align-items-center">
+                          <img 
+                            src={item.image} 
+                            alt={item.name} 
+                            className="me-3 rounded"
+                            style={{ width: "50px", height: "50px", objectFit: "cover" }} 
+                          />
+                          <span>{item.name}</span>
+                        </div>
                         <span className="badge bg-primary rounded-pill">
                           ${item.price.toFixed(2)} x {item.quantity}
                         </span>

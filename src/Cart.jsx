@@ -71,7 +71,7 @@ function Cart() {
 
                     {showdiscount && (
                         <div className="alert alert-info border border-primary">
-                            <strong>Discount Applied!</strong>
+                            <strong>Discount Applied:{discountpercentage}%</strong>
                             <p>Discount Amount: ${discountamount.toFixed(2)}</p>
                         </div>
                     )}
