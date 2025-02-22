@@ -109,11 +109,11 @@ let purchaseDetailsSlice=createSlice({
 });
 const authSlice = createSlice({
     name:'auth',
-    initialState:{
+    initialState:{ 
         isAuthenticated:localStorage.getItem("username")?true:false,
         user:localStorage.getItem("username") || "",
     },
-    reducers:{
+    reducers:{ 
         login:(state,action)=>{
             state.isAuthenticated=true;
             state.user=action.payload;
