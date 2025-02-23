@@ -46,7 +46,7 @@ function Fruits() {
             <div className="text-center mb-3">
                 <h5 className="fw-bold text-success">
                     {timeLeft > 0 ? (
-                        <>All Fruits expire in: <span className="badge bg-success">{formatTime(timeLeft)}</span></>
+                        <>HURRY! LAST FEW HOURS: <span className="badge bg-success">{formatTime(timeLeft)}</span></>
                     ) : (
                         <span className="badge bg-warning text-dark">Order Fast! Products are expiring!</span>
                     )}
@@ -55,6 +55,7 @@ function Fruits() {
             
             <div className="d-flex justify-content-center mb-3">
                 <div className="input-group w-50 shadow-sm">
+                    <span className="input-group-text bg-success text-white" id="search-icon">🔎</span>
                     <input 
                         type="text" 
                         className="form-control border border-success rounded-3" 
@@ -62,7 +63,10 @@ function Fruits() {
                         value={searchTerm} 
                         onChange={(e) => setSearchTerm(e.target.value)}
                         style={{ maxWidth: "250px" }} 
+                        aria-label="Search"
+                        aria-describedby="search-icon"
                     />
+                    <button className="btn btn-success" onClick={() => {}}>Search</button>
                 </div>
             </div>
 
@@ -134,6 +138,12 @@ function Fruits() {
                 >
                     Next <i className="bi bi-arrow-right"></i>
                 </button>
+            </div>
+
+            <div className="text-center mt-5 p-4 bg-light rounded">
+                <h4 className="text-success fw-bold">🍏 Fun Fruit Facts 🍎</h4>
+                <p className="text-muted">Did you know? Bananas are berries, but strawberries aren't!</p>
+                <p className="text-muted">Apples float in water because they are 25% air!</p>
             </div>
         </div>
     );

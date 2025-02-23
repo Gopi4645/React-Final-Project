@@ -41,36 +41,40 @@ function Veg() {
 
     return (
         <div className="container mt-4 bg-light p-4 rounded shadow-lg">
-            <h2 className="text-center mb-4 text-success fw-bold">Welcome To Vegetable Items</h2>
+            <h2 className="text-center mb-4 text-success fw-bold">🥦 Welcome To Fresh Vegetables</h2>
 
+            {/* Expiry Timer */}
             <div className="text-center mb-3">
                 <h5 className="fw-bold text-danger">
                     {timeLeft > 0 ? (
                         <>All Vegetables expire in: <span className="badge bg-danger">{formatTime(timeLeft)}</span></>
                     ) : (
-                        <span className="badge bg-warning text-dark">Order Fast! Products are expiring!</span>
+                        <span className="badge bg-warning text-dark">HURRY! LAST FEW HOURS!</span>
                     )}
                 </h5>
             </div>
             
+            {/* Search Bar */}
             <div className="d-flex justify-content-center mb-3">
                 <div className="input-group w-50 shadow-sm">
                     <input 
                         type="text" 
-                        className="form-control border border-success rounded-3" 
-                        placeholder="Search fresh vegetables..." 
+                        className="form-control border border-success rounded-3 bg-white text-dark"
+                        placeholder="🔍 Search fresh vegetables..." 
                         value={searchTerm} 
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        style={{ maxWidth: "250px" }} 
+                        style={{ maxWidth: "250px", borderColor: "#28a745", boxShadow: "0 0 8px rgba(40, 167, 69, 0.5)" }} 
                     />
                 </div>
             </div>
 
+            {/* Price Filter */}
             <div className="d-flex justify-content-center mb-3">
-                <label className="fw-bold me-2">Filter by Price:</label>
+                <label className="fw-bold me-2 text-success">Filter by Price:</label>
                 <select 
-                    className="form-select w-auto border border-success shadow-sm" 
+                    className="form-select w-auto border border-success shadow-sm text-success fw-bold"
                     onChange={(e) => setPriceFilter(e.target.value)}
+                    style={{ backgroundColor: "#e9f5e9", borderColor: "#28a745" }}
                 >
                     <option value="all">All</option>
                     <option value="0-100">$0 - $100</option>
@@ -79,6 +83,7 @@ function Veg() {
                 </select>
             </div>
 
+            {/* Vegetable Cards */}
             <div className="row">
                 {displayedItems.length > 0 ? (
                     displayedItems.map((item, index) => (
@@ -94,10 +99,20 @@ function Veg() {
                                     <h5 className="card-title text-success fw-bold">{item.name}</h5>
                                     <p className="card-text text-success fw-bold fs-5">${item.price}</p>
                                     <button 
-                                        className="btn custom-cart-btn w-100 fw-bold"
+                                        className="btn w-100 fw-bold text-white d-flex align-items-center justify-content-center"
                                         onClick={() => dispatch(addToCart(item))}
+                                        style={{
+                                            background: "linear-gradient(to right, #ff8c00, #ff4500)",
+                                            border: "none",
+                                            padding: "10px",
+                                            borderRadius: "30px",
+                                            transition: "0.3s",
+                                            boxShadow: "0 4px 6px rgba(255, 140, 0, 0.3)"
+                                        }}
+                                        onMouseOver={(e) => e.target.style.background = "#ff4500"}
+                                        onMouseOut={(e) => e.target.style.background = "linear-gradient(to right, #ff8c00, #ff4500)"}
                                     >
-                                        <i className="bi bi-cart-plus me-2"></i> Add to Cart
+                                        <i className="bi bi-cart-fill me-2"></i> Add to Cart
                                     </button>
                                 </div>
                             </div>
@@ -110,6 +125,7 @@ function Veg() {
                 )}
             </div>
 
+            {/* Pagination */}
             <div className="d-flex justify-content-center mt-4">
                 <button 
                     className="btn btn-warning me-2" 
@@ -136,34 +152,15 @@ function Veg() {
                 </button>
             </div>
 
-            {/* Quick Bites Section */}
-            <div className="row mt-5">
-                <h2 className="text-center text-primary fw-bold">🍀 Quick Bites</h2>
-                <p className="text-center text-muted">Fun vegetable facts and deals for you!</p>
-                
-                <div className="col-md-4">
-                    <div className="card shadow-sm p-3">
-                        <i className="fa-solid fa-leaf text-success fs-1"></i>
-                        <h5 className="mt-2">Leafy Greens</h5>
-                        <p className="text-muted">Spinach is rich in iron and can boost your immune system!</p>
-                    </div>
-                </div>
-
-                <div className="col-md-4">
-                    <div className="card shadow-sm p-3">
-                        <i className="fa-solid fa-carrot text-warning fs-1"></i>
-                        <h5 className="mt-2">Carrots & Eyesight</h5>
-                        <p className="text-muted">Carrots are packed with beta-carotene, which helps improve vision.</p>
-                    </div>
-                </div>
-
-                <div className="col-md-4">
-                    <div className="card shadow-sm p-3">
-                        <i className="fa-solid fa-tag text-danger fs-1"></i>
-                        <h5 className="mt-2">Special Offer</h5>
-                        <p className="text-muted">Buy 2kg of potatoes and get 1kg of onions FREE! Limited time.</p>
-                    </div>
-                </div>
+            {/* Footer */}
+            <div className="text-center mt-4 text-success fw-bold">
+                🥦 Welcome To Fresh Organic Vegetables<br/>
+                🌱 Eat Fresh, Stay Healthy! 🌿<br/>
+                Get farm-fresh organic veggies delivered to your doorstep. Taste the purity! 🥕🥬<br/>
+                <br/>
+                © 2025 Fresh Organic. All Rights Reserved.<br/>
+                <br/>
+                Enjoy the best hand-picked vegetables with love! ❤️
             </div>
         </div>
     );

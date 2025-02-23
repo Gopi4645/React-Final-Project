@@ -46,7 +46,7 @@ function Fastfood() {
             <div className="text-center mb-3">
                 <h5 className="fw-bold text-warning">
                     {timeLeft > 0 ? (
-                        <>All Fast Food Items expire in: <span className="badge bg-warning">{formatTime(timeLeft)}</span></>
+                        <>HURRY! LAST FEW HOURS: <span className="badge bg-warning">{formatTime(timeLeft)}</span></>
                     ) : (
                         <span className="badge bg-danger text-dark">Order Fast! Products are expiring!</span>
                     )}

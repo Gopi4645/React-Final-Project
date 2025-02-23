@@ -30,9 +30,9 @@ function Nonveg() {
     const filteredItems = nonvegItems.filter(item => 
         item.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
         (priceFilter === "all" ||
-        (priceFilter === "0-100" && item.price >= 0 && item.price <= 100) ||
-        (priceFilter === "100-200" && item.price > 100 && item.price <= 200) ||
-        (priceFilter === "200-300" && item.price > 200 && item.price <= 300))
+        (priceFilter === "200-400" && item.price >= 200 && item.price <= 400) ||
+        (priceFilter === "400-800" && item.price > 400 && item.price <= 800) ||
+        (priceFilter === "800-1000" && item.price > 800 && item.price <= 1000))
     );
 
     const totalPages = Math.min(Math.ceil(filteredItems.length / itemsPerPage), maxPages);
@@ -41,27 +41,30 @@ function Nonveg() {
 
     return (
         <div className="container mt-4">
-            <h2 className="text-center mb-4 text-danger fw-bold">Welcome To Non-Vegetarian Items</h2>
+            <h2 className="text-center mb-4 text-danger fw-bold">Welcome To Nonveg Dishes</h2>
 
             <div className="text-center mb-3">
                 <h5 className="fw-bold text-danger">
                     {timeLeft > 0 ? (
-                        <>All Nonveg Dishes expire in: <span className="badge bg-danger">{formatTime(timeLeft)}</span></>
+                        <>HURRY! LAST FEW HOURS: <span className="badge bg-danger">{formatTime(timeLeft)}</span></>
                     ) : (
-                        <span className="badge bg-warning text-dark">Order Fast! Products are expiring!</span>
+                        <span className="badge bg-warning text-dark">HURRY! Delicious Fastfood expiring!</span>
                     )}
                 </h5>
             </div>
             
             <div className="d-flex justify-content-center mb-3">
                 <div className="input-group w-50 shadow-sm">
+                    <span className="input-group-text bg-danger text-white" id="search-icon">🔎</span>
                     <input 
                         type="text" 
                         className="form-control border border-danger rounded-3" 
-                        placeholder="Search fresh non-veg items..." 
+                        placeholder="Search fresh non-veg dishes..." 
                         value={searchTerm} 
                         onChange={(e) => setSearchTerm(e.target.value)}
                         style={{ maxWidth: "250px" }} 
+                        aria-label="Search"
+                        aria-describedby="search-icon"
                     />
                 </div>
             </div>
@@ -73,9 +76,9 @@ function Nonveg() {
                     onChange={(e) => setPriceFilter(e.target.value)}
                 >
                     <option value="all">All</option>
-                    <option value="0-100">$0 - $100</option>
-                    <option value="100-200">$100 - $200</option>
-                    <option value="200-300">$200 - $300</option>
+                    <option value="200-400">$200 - $400</option>
+                    <option value="400-800">$400 - $800</option>
+                    <option value="800-1000">$800 - $1000</option>
                 </select>
             </div>
 
@@ -135,11 +138,11 @@ function Nonveg() {
                     Next <i className="bi bi-arrow-right"></i>
                 </button>
             </div>
-
-            <div className="text-center mt-5 p-3 bg-danger text-white rounded shadow-lg">
-                <h4 className="fw-bold">Enjoy Our Delicious Bites!</h4>
-                <p className="fs-5">Savor the flavors of our freshly cooked non-veg dishes. Order now and indulge in the best taste!</p>
-            </div>
+            
+            <footer className="text-center mt-5 p-3 bg-danger text-white rounded">
+                <p className="mb-0">&copy; 2025 Nonveg Bites. All Rights Reserved.</p>
+                <p className="mb-0">Enjoy the best non-veg delicacies at unbeatable prices!</p>
+            </footer>
         </div>
     );
 }

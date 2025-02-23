@@ -9,7 +9,7 @@ function Milk() {
     const [currentPage, setCurrentPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState("");
     const [priceFilter, setPriceFilter] = useState("all");
-    const [timeLeft, setTimeLeft] = useState(24 * 60 * 60); // 24 hours in seconds
+    const [timeLeft, setTimeLeft] = useState(24 * 60 * 60);
     const itemsPerPage = 3;
     const maxPages = 3;
 
@@ -42,16 +42,16 @@ function Milk() {
     return (
         <div className="container mt-4">
             <h2 className="text-center mb-4 text-primary fw-bold">Welcome To Milk Items</h2>
-
-            {/* Timer Section */}
+            
             <div className="text-center mb-3">
                 <h5 className="fw-bold text-danger">
-                    All products expire in: <span className="badge bg-danger">{formatTime(timeLeft)}</span>
+                    HURRY! LAST FEW HOURS: <span className="badge bg-danger">{formatTime(timeLeft)}</span>
                 </h5>
             </div>
             
             <div className="d-flex justify-content-center mb-3">
                 <div className="input-group w-50 shadow-sm">
+                    <span className="input-group-text bg-primary text-white"><i className="bi bi-search"></i></span>
                     <input 
                         type="text" 
                         className="form-control border border-primary rounded-3" 
@@ -91,7 +91,7 @@ function Milk() {
                                     <h5 className="card-title text-primary fw-bold">{item.name}</h5>
                                     <p className="card-text text-success fw-bold fs-5">${item.price}</p>
                                     <button 
-                                        className="btn add-to-cart-btn w-100 fw-bold"
+                                        className="btn btn-primary w-100 fw-bold"
                                         onClick={() => dispatch(addToCart(item))}
                                     >
                                         <i className="bi bi-cart-plus me-2"></i> Add to Cart
@@ -108,35 +108,22 @@ function Milk() {
             </div>
 
             <div className="d-flex justify-content-center mt-4">
-                <button 
-                    className="btn btn-warning me-2" 
-                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                    disabled={currentPage === 1}
-                >
+                <button className="btn btn-warning me-2" onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} disabled={currentPage === 1}>
                     <i className="bi bi-arrow-left"></i> Previous
                 </button>
                 {[...Array(totalPages)].map((_, index) => (
-                    <button 
-                        key={index} 
-                        className={`btn mx-1 ${currentPage === index + 1 ? "btn-primary" : "btn-outline-primary"}`}
-                        onClick={() => setCurrentPage(index + 1)}
-                    >
+                    <button key={index} className={`btn mx-1 ${currentPage === index + 1 ? "btn-primary" : "btn-outline-primary"}`} onClick={() => setCurrentPage(index + 1)}>
                         {index + 1}
                     </button>
                 ))}
-                <button 
-                    className="btn btn-warning ms-2" 
-                    onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                    disabled={currentPage === totalPages}
-                >
+                <button className="btn btn-warning ms-2" onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages}>
                     Next <i className="bi bi-arrow-right"></i>
                 </button>
             </div>
 
-            {/* Bites Section */}
-            <div className="text-center mt-5">
-                <h3 className="fw-bold text-success">Delicious Bites!</h3>
-                <p className="text-muted">Enjoy fresh and creamy milk-based treats.</p>
+            <div className="text-center mt-5 p-3 bg-primary text-white rounded shadow-lg">
+                <h4 className="fw-bold">Enjoy Our Fresh Milk!</h4>
+                <p className="fs-5">Indulge in the richness of fresh dairy products. Order now for a creamy delight!</p>
             </div>
         </div>
     );

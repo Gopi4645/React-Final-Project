@@ -22,7 +22,7 @@ function Order() {
                     <i className="bi bi-receipt"></i> Order #{index + 1}
                   </h5>
                   <p className="mb-1"><strong>Date:</strong> {purchase.date}</p>
-                  <p className="mb-1"><strong>Time:</strong> {purchase.time}</p>
+                  <p className="mb-1"><strong>Time:</strong> {purchase.timestamp}</p>
                   <p className="mb-3"><strong>Total Amount:</strong> ${purchase.totalprice.toFixed(2)}</p>
 
                   <h6 className="mt-3"><i className="bi bi-basket"></i> Items Purchased:</h6>

@@ -23,31 +23,28 @@ function Cart() {
     const totalprice = cart.reduce((sum, item) => sum + item.quantity * item.price, 0);
     
     const [discountpercentage, setdiscountpercentage] = useState(0);
-    const discountamount = (totalprice * discountpercentage) / 100;
-    const finalamount = totalprice - discountamount;
+    const [couponcode, setcouponcode] = useState('');
+    const [couponcodediscountper, setcouponcodediscountper] = useState(0);
 
-    let [showdiscount, setshowdiscount] = useState(false);
-    let [showcoupon, setshowcoupon] = useState(false);
-    let [couponcode, setcouponcode] = useState('');
-    let [couponcodediscountper, setcouponcodediscountper] = useState(0);
+    const discountamount = (totalprice * discountpercentage) / 100;
+    const couponDiscountAmount = (totalprice * couponcodediscountper) / 100;
+    const finalamount = totalprice - discountamount - couponDiscountAmount;
 
     let handlingcouponper = () => {
         switch (couponcode.toUpperCase()) {
-            case 'RATAN10': setcouponcodediscountper(10); setshowcoupon(true); break;
-            case 'RATAN20': setcouponcodediscountper(20); setshowcoupon(true); break;
-            case 'RATAN30': setcouponcodediscountper(30); setshowcoupon(true); break;
-            case 'RATAN40': setcouponcodediscountper(40); setshowcoupon(true); break;
+            case 'RATAN10': setcouponcodediscountper(10); break;
+            case 'RATAN20': setcouponcodediscountper(20); break;
+            case 'RATAN30': setcouponcodediscountper(30); break;
+            case 'RATAN40': setcouponcodediscountper(40); break;
             default: alert("Invalid Coupon Code"); setcouponcodediscountper(0);
         }
     };
-
-    let couponDiscountAmount = (totalprice * couponcodediscountper) / 100;
 
     let handlepurchaseDetails = () => {
         let purchaseDetails = {
             date: new Date().toLocaleDateString(),
             items: [...cart],
-            totalprice: totalprice
+            totalprice: finalamount
         };
         dispatch(clearCart());
         dispatch(purchaseItems(purchaseDetails));
@@ -58,23 +55,16 @@ function Cart() {
             {cart.length > 0 ? (
                 <div>
                     <h2 className="mb-3 text-center text-primary">Shopping Cart</h2>
-                    
                     <ul className="list-group mb-3">{cartItems}</ul>
 
                     <h5 className="text-success">Apply Discount</h5>
                     <div className="mb-3 d-flex flex-wrap gap-2">
-                        <button className="btn btn-outline-success" onClick={() => (setdiscountpercentage(10), setshowdiscount(true))}>10%</button>
-                        <button className="btn btn-outline-primary" onClick={() => (setdiscountpercentage(20), setshowdiscount(true))}>20%</button>
-                        <button className="btn btn-outline-warning" onClick={() => (setdiscountpercentage(30), setshowdiscount(true))}>30%</button>
-                        <button className="btn btn-outline-danger" onClick={() => (setdiscountpercentage(40), setshowdiscount(true))}>40%</button>
+                        {[10, 20, 30, 40].map(percentage => (
+                            <button key={percentage} className="btn btn-outline-success" onClick={() => setdiscountpercentage(percentage)}>
+                                {percentage}%
+                            </button>
+                        ))}
                     </div>
-
-                    {showdiscount && (
-                        <div className="alert alert-info border border-primary">
-                            <strong>Discount Applied:{discountpercentage}%</strong>
-                            <p>Discount Amount: ${discountamount.toFixed(2)}</p>
-                        </div>
-                    )}
 
                     <table className="table table-bordered bg-light">
                         <tbody>
@@ -88,11 +78,11 @@ function Cart() {
                             </tr>
                             <tr>
                                 <td>Coupon Discount</td>
-                                <td>{discountpercentage}%</td>
+                                <td>${couponDiscountAmount.toFixed(2)}</td>
                             </tr>
                             <tr className="bg-success text-white">
                                 <td><strong>Final Amount</strong></td>
-                                <td><strong>${(finalamount - couponDiscountAmount).toFixed(2)}</strong></td>
+                                <td><strong>${finalamount.toFixed(2)}</strong></td>
                             </tr>
                         </tbody>
                     </table>
@@ -107,13 +97,6 @@ function Cart() {
                         />
                         <button className="btn btn-warning" onClick={handlingcouponper}>Apply Coupon</button>
                     </div>
-
-                    {showcoupon && (
-                        <div className="alert alert-success border border-dark">
-                            <p>Coupon Code Applied: <strong>{couponcode}</strong></p>
-                            <p>Coupon Discount: ${couponDiscountAmount.toFixed(2)}</p>
-                        </div>
-                    )}
 
                     <button className="btn btn-lg btn-success w-100 border border-dark" onClick={handlepurchaseDetails}>
                         Complete Purchase
